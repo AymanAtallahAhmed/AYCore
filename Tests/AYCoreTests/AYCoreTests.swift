@@ -3,7 +3,7 @@ import XCTest
 
 final class AYCoreTests: XCTestCase {
     func testReturnCorrectColorFromHex() {
-        let expectedColor = AYCore.colorFrom(hexString: "#ff0000")
-        XCTAssertEqual(expectedColor, .red)
+        let expectedColor = AYCore.colorFrom(hexString: "ff0000")
+        XCTAssertEqual(expectedColor, UIColor.red)
     }
 }
