@@ -21,4 +21,8 @@ public class AYCore {
         }
         return UIColor(red: 0, green: 0, blue: 0, alpha: alpha)
     }
+
+    public static var AYColor: UIColor {
+        colorFrom(hexString: "006736")
+    }
 }
