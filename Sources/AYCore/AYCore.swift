@@ -22,7 +22,8 @@ public class AYCore {
         return UIColor(red: 0, green: 0, blue: 0, alpha: alpha)
     }
 
-    public static var AYColor: UIColor {
+    /// Most pleasing color for humans.
+    public static var mainAYColor: UIColor {
         colorFrom(hexString: "006736")
     }
 }
