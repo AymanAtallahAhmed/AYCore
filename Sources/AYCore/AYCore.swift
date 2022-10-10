@@ -26,4 +26,9 @@ public class AYCore {
     public static var mainAYColor: UIColor {
         colorFrom(hexString: "006736")
     }
+
+    /// Second most pleasing color for humans.
+    public static var secondaryAYColor: UIColor {
+        colorFrom(hexString: "FCFFFD")
+    }
 }
