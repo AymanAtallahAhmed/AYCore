@@ -31,8 +31,8 @@ extension AYCore {
             /// Interacts with live internet to retreive data from the given url.
             /// - Parameters:
             ///   - url: A *URL* object you with to fetch data from.
-            ///   - completion: Returns a result object contains opential data or error while fetching. 
-            func loadData(from url: URL, completion: @escaping (NetworkResult<Data>) -> Void) {
+            ///   - completion: Returns a result object contains opential data or error while fetching.
+            public func loadData(from url: URL, completion: @escaping (NetworkResult<Data>) -> Void) {
                 session.get(from: url) { data, error in
                     let result: NetworkResult = data.map(NetworkResult<Data>.success) ?? .failure(error)
                     completion(result)
