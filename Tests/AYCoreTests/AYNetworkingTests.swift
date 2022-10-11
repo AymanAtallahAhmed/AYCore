@@ -30,6 +30,30 @@ final class AYNetworkingTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 4)
     }
+
+    func testSendData() {
+        let manager = AYCore.Networking.Manager()
+        let sessionMock = NetworkSessionMock()
+        let mockObject = MockedData.init(id: 1, name: "Ayman")
+        let mockData = try? JSONEncoder().encode(mockObject)
+        sessionMock.data = mockData
+        manager.session = sessionMock
+
+        let url = URL(fileURLWithPath: "url")
+        let expectation = XCTestExpectation(description: "Send data properly in-time")
+
+        manager.sendData(to: url, body: mockObject) { result in
+            expectation.fulfill()
+            switch result {
+            case .success(let returnedData):
+                let returnedObject = try? JSONDecoder().decode(MockedData.self, from: returnedData)
+                XCTAssertEqual(returnedObject, mockObject)
+                break
+            case .failure(let error):
+                XCTFail(error?.localizedDescription ?? "Could not send object proberly")
+            }
+        }
+    }
 }
 
 class NetworkSessionMock: NetworkSession {
@@ -39,4 +63,13 @@ class NetworkSessionMock: NetworkSession {
     func get(from url: URL, completion: @escaping (Data?, Error?) -> Void) {
         completion(data, error)
     }
+
+    func post(with request: URLRequest, completion: @escaping (Data?, Error?) -> Void) {
+        completion(data, error)
+    }
+}
+
+struct MockedData: Codable, Equatable {
+    let id: Int?
+    let name: String?
 }
