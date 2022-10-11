@@ -10,6 +10,23 @@ import XCTest
 
 final class AYNetworkingTests: XCTestCase {
 
-    func testExample() throws {
+    func testLoadData() {
+        let manager = AYCore.Networking.Manager()
+        let expectation = XCTestExpectation(description: "Data called")
+        guard let url = URL(string: "https://raywenderlich.com") else {
+            XCTFail("Could not get a valid url")
+            return
+        }
+        
+        manager.loadData(from: url) { result in
+            expectation.fulfill()
+            switch result {
+            case .success(let loadedData):
+                XCTAssertNotNil(loadedData, "loaded data is nil")
+            case .failure(let error):
+                XCTFail(error?.localizedDescription ?? "error forming invalid result")
+            }
+        }
+        wait(for: [expectation], timeout: 4)
     }
 }

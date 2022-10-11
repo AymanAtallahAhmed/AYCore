@@ -9,5 +9,24 @@ import Foundation
 
 extension AYCore {
     public class Networking {
+        /// Manager class responsible for handling netowk calls.
+        /// - Warning: This class must be created before using any public API.
+        public class Manager {
+            public init() {}
+            private let session = URLSession.shared
+            
+            func loadData(from url: URL, completion: @escaping (NetworkResult<Data>) -> Void) {
+                let task = session.dataTask(with: url) { data, response, error in
+                    let result: NetworkResult = data.map(NetworkResult<Data>.success) ?? .failure(error)
+                    completion(result)
+                }
+                task.resume()
+            }
+        }
+
+        public enum NetworkResult<Value> {
+            case success(Value)
+            case failure(Error?)
+        }
     }
 }
